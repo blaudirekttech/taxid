@@ -46,6 +46,14 @@ func TestValidateTaxID(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "Invalid Tax ID",
+			args: args{
+				country: Germany,
+				taxID:   "41 445 871 363 123",
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

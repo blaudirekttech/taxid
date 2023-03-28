@@ -23,17 +23,17 @@ func isGermanTaxIDValid(id string) bool {
 		return false
 	}
 
-	intSlice, ok := convertToIntSlice(id)
+	int64Slice, ok := convertToInt64Slice(id)
 	if !ok {
 		return false
 	}
 
 	// Checksum
-	var sum int
+	var sum int64
 
-	product := 10
+	product := int64(10)
 	for i := 0; i < taxIDLength-1; i++ {
-		sum = (intSlice[i] + product) % 10
+		sum = (int64Slice[i] + product) % 10
 		if sum == 0 {
 			sum = 10
 		}
@@ -46,7 +46,7 @@ func isGermanTaxIDValid(id string) bool {
 		checksum = 0
 	}
 
-	lastDigit := intSlice[taxIDLength-1]
+	lastDigit := int64Slice[taxIDLength-1]
 
 	return lastDigit == checksum
 }
