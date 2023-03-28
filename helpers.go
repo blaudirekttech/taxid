@@ -1,26 +1,27 @@
 package taxid
 
 import (
-	"math"
 	"strconv"
+	"strings"
 )
 
-func convertToIntSlice(str string) ([]int, bool) {
+func convertToInt64Slice(str string) ([]int64, bool) {
+	str = strings.ReplaceAll(str, " ", "")
 	if _, err := strconv.Atoi(str); err != nil {
 		return nil, false
 	}
 
-	var slice []int
+	var slice []int64
 
 	for _, digit := range str {
-		slice = append(slice, int(digit)-int('0'))
+		slice = append(slice, int64(digit)-int64('0'))
 	}
 
 	return slice, true
 }
 
-func uniqueCharsInAString(str string) int {
-	count := 0
+func uniqueCharsInAString(str string) int64 {
+	count := int64(0)
 
 	for i := 0; i < len(str); i++ {
 		appears := false
@@ -41,18 +42,16 @@ func uniqueCharsInAString(str string) int {
 	return count
 }
 
-func sumDigits(number int) int {
-	remainder := 0
-	sumResult := 0
-	for number != 0 {
-		remainder = number % 10
-		sumResult += remainder
-		number = number / 10
+func sumDigits(number int64) int64 {
+	if number < 0 {
+		number = -number
 	}
-	return sumResult
-}
 
-func digitAt(num, place int) int {
-	r := num % int(math.Pow(10, float64(place)))
-	return r / int(math.Pow(10, float64(place-1)))
+	sumResult := int64(0)
+	for number > 0 {
+		sumResult += number % 10
+		number /= 10
+	}
+
+	return sumResult
 }
