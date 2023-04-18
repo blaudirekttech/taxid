@@ -17,7 +17,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/ruukydev/taxid"
+	"github.com/blaudirekttech/taxid"
 )
 
 func main() {
